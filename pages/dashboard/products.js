@@ -15,7 +15,14 @@ const Products = ({ products }) => {
     const [newProduct,setNewProduct] = useState([]);
     const handleCreateNewProduct = (datas) => {
         // event.preventDefault()
+        const bodyData = {
+            product : datas,
+            customer : "admin@gmail.com"
+        }
         console.log(datas)
+        axios.post(`${API_URL}/admin/product/create`,bodyData).then((res)=>{
+            console.log(res);
+        })
     }
     
     // handle pagination button clicks
