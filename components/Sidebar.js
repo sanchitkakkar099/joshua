@@ -19,7 +19,7 @@ const Sidebar = () => {
                             DashBoard</p>
                         </Link>
                     </div>
-                    <div className="col-md-12  ">
+                    {/* <div className="col-md-12  ">
                         <Link href={'/dashboard/customers'} className={"text-decoration-none pe-auto"}>
                         <p className=" fs-5 text-light" >
                                 <span>
@@ -30,7 +30,7 @@ const Sidebar = () => {
                         Stores
                         </p>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className="col-md-12  ">
                         <Link href={'/dashboard/orders'} className={"text-decoration-none pe-auto"}>
                         <p className=" fs-5 text-light" >
