@@ -145,7 +145,7 @@ const Products = () => {
                                 {successAlert &&
                                     <div className="row">
                                         <div className="alert alert-info">
-                                            {successAlert}
+                                            {"Successfully Created the product to your own store."}
                                         </div>
                                     </div>
                                 }

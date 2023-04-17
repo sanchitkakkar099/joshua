@@ -1,5 +1,6 @@
 import {Head} from "next/head";
 import Sidebar from "./Sidebar";
+import { useRouter } from "next/router";
 
 const DashboardLayout = ({header,content}) => {
     return(

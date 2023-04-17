@@ -11,13 +11,15 @@ const Callback = () => {
     useEffect(() => {
         axios.post(`${API_URL}/shopify/callback?code=${queryPrams.code}&hmac=${queryPrams.hmac}&host=${queryPrams.host}
         &shop=${queryPrams.shop}&state=${queryPrams.state}&timestamp=${queryPrams.timestamp}`)
-        .then((res)=> {
-            setCookie('xavascrtcode',res.data.access_token, { path: '/',  maxAge: 60 * 6 * 24 })
-            console.log(res);
-            Router.push('/')
-        }).catch((err) => {
-            console.log(err.message);
-        })  
+            .then((res) => {
+                if (res.data.access_token != null) {
+                    setCookie('xavascrtcode', res.data.access_token, { path: '/', maxAge: 60 * 6 * 24 })
+                    console.log(res);
+                    Router.push('/')
+                }
+            }).catch((err) => {
+                console.log(err.message);
+            })
     })
     return (
         <>
