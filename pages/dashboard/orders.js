@@ -26,21 +26,23 @@ const Orders = () => {
                             <h1>List Order</h1>
                         </div>
                         <div className=" mt-5">
-                            <table className="table table-striped">
+                            <table className="table  table-striped">
                                 <tr>
                                     <td>Sr. No</td>
                                     <td>Order Id</td>
                                     <td>Price</td>
                                     <td>Is Artovision</td>
                                 </tr>
+                                {console.log(getOrder)}
                                 {getOrder && getOrder.map((order,index) => {
                                     return (
                                         <>
+                                        {/* {console.log(order)} */}
                                             <tr>
                                                 <td>{index+1}</td>
                                                 <td>{order.id}</td>
                                                 <td>{order.subtotal_price}</td>
-                                                <td>No</td>
+                                                <td>Yes</td>
                                             </tr>
                                         </>
                                     )
