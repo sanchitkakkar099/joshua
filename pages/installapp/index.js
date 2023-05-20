@@ -5,50 +5,40 @@ import { useShopStore } from "../../public/store/shopStore";
 import { useRouter } from "next/router";
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+
 import axios from "axios";
 import Head from "next/head";
 
 
 const InstallApp = () => {
-  const shop = useShopStore((state) => state.shop)
-  const setShop = useShopStore((state) => state.setShop)
+  
+  // const shop = useShopStore((state) => state.shop)
+  // const setShop = useShopStore((state) => state.setShop)
   const [shopName, setShopName] = useState("");
   const Router = useRouter()
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState(null);
-  const loginMutation = useMutation(async (formData) => {
-    console.log(formData);
-    // call your login API here
-    // console.log(API_URL)
-    const response = await axios.post(`${API_URL}/install/app`, {
-      shopname: formData.shopName
-    });
-
-    const data = await response;
-    console.log(data);
-    // const NewURLParams = data?.data?.redirectURL;
-    // const searchParams = new URLSearchParams(new URL(NewURLParams).search);
-
-    // const queryParams = {};
-
-    // searchParams.forEach((value, key) => {
-    //   queryParams[key] = value;
-    // });
-    // console.log(searchParams);
-    // console.log(queryParams)
-    window.location = data?.data?.redirectURL
-    // console.log(data);
-    // setCookie('access_token', data.data.jwt, { path: '/' })
-    // setUser(data)
-    // return data;
+  const loginMutation = useMutation((formData) => {
+    // console.log(formData)
+    var formdata = new FormData();
+    formdata.append("shop_name", `${formData.shopName}`);
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+    
+    fetch("http://127.0.0.1:8000/api/shopify/installapp", requestOptions)
+      .then(response => response.json())
+      .then(result => 
+        window.location.href = result.redirect_url
+        )
+      .catch(error => console.log('error', error));
   });
   const onSubmit = async (data) => {
     try {
-
       await loginMutation.mutateAsync(data);
-
-      // redirect to dashboard page if login success
-      //   Router.push('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);
     }

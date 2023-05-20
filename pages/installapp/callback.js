@@ -2,20 +2,23 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../config";
+import {useUserStore} from "../../public/store/userStore";
 import { setCookie } from "cookies-next";
 const Callback = () => {
+    const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
     const Router = useRouter()
     const queryPrams = Router.query;
-    // console.log(queryPrams)
-    // console.log(access_token);
+    console.log(queryPrams)
     useEffect(() => {
-        axios.post(`${API_URL}/shopify/callback?code=${queryPrams.code}&hmac=${queryPrams.hmac}&host=${queryPrams.host}
-        &shop=${queryPrams.shop}&state=${queryPrams.state}&timestamp=${queryPrams.timestamp}`)
+        axios.post(`http://127.0.0.1:8000/api/shopify/callback?code=${queryPrams.code}&hmac=${queryPrams.hmac}&host=${queryPrams.host}&shop=${queryPrams.shop}&timestamp=${queryPrams.timestamp}`)
             .then((res) => {
-                if (res.data.access_token != null) {
-                    setCookie('xavascrtcode', res.data.access_token, { path: '/', maxAge: 60 * 6 * 24 })
-                    console.log(res);
-                    Router.push('/')
+                console.log(res)
+                if (res.data.status != null) {
+                    setCookie('xavascrtcode', res.data.message.email, { path: '/', maxAge: 60 * 6 * 24 })
+                    // console.log(res);
+                    setUser(res.data.message)
+                    Router.push('/dashboard')
                 }
             }).catch((err) => {
                 console.log(err.message);

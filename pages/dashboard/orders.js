@@ -25,8 +25,8 @@ const Orders = () => {
                         <div>
                             <h1>List Order</h1>
                         </div>
-                        <div className=" mt-5">
-                            <table className="table  table-striped">
+                        <div className="mt-5">
+                            <table className="table  table-striped table-bordered">
                                 <tr>
                                     <td>Sr. No</td>
                                     <td>Order Id</td>
